@@ -12,4 +12,4 @@ bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login.view = 'login'
 
-from app import routes
+from app import routes, models
