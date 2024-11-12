@@ -9,8 +9,8 @@ from flask_login import login_user, logout_user, current_user, login_required
 def index():
     return render_template('index.html')
 
-@app.route('/registration', methods=['GET', 'POST'])
-def registration():
+@app.route('/register', methods=['GET', 'POST'])
+def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = RegistrationForm()
@@ -35,7 +35,7 @@ def login():
             return redirect(url_for('index'))
         else:
             flash('Неверно введены данные аккаунта', 'danger')
-    return render_template('index.html', form=form)
+    return render_template('login.html', form=form)
 
 @app.route('/logout')
 def logout():
@@ -45,6 +45,7 @@ def logout():
 @app.route('/click')
 @login_required
 def click():
-    current_user.click += 1
+    current_user.clicks += 1
     db.session.commit()
     return redirect(url_for('index'))
+
