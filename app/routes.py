@@ -21,7 +21,7 @@ def registration():
         db.session.commit()
         flash('Вы успешно зарегистрировались!', 'success')
         return redirect(url_for('login'))
-    return render_template('register.html')
+    return render_template('register.html', form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -32,10 +32,10 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user)
-            return redirect(url_for('login'))
+            return redirect(url_for('index'))
         else:
             flash('Неверно введены данные аккаунта', 'danger')
-    return render_template('login.html')
+    return render_template('index.html', form=form)
 
 @app.route('/logout')
 def logout():
